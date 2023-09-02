@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: only light;
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl sm:text-[40px];
+  }
+  h2 {
+    @apply text-2xl sm:text-[30px];
+  }
+  h3 {
+    @apply text-xl sm:text-[26px];
+  }
+}
+
+@layer components {
+  .container {
+    @apply px-4 sm:px-8;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  .text-base {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: light only;
+  }
+}
+
+/* prose */
+.prose-base :where(p):not(:where([class~="not-prose"] *)) {
+  @apply mb-5;
+}
+
+.prose-base h1,
+.prose-base h2,
+.prose-base h3,
+.prose-base h4,
+.prose-base h5,
+.prose-base h6 {
+  @apply my-6;
+}
