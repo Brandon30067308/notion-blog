@@ -31,17 +31,19 @@ export default function BlogPostCard({
           className="w-full h-52 object-cover"
         />
         <div className="flex flex-col px-4">
-          <div className="sm:min-h-[24px] flex flex-wrap gap-2 mb-3">
-            {(tags ?? []).map((tag, i) => {
-              return (
-                <div
-                  key={i}
-                  className="bg-gray-100 font-medium capitalize text-xs rounded-md px-2 py-1 shadow-sm"
-                >
-                  {tag.name}
-                </div>
-              );
-            })}
+          <div className="custom-scrollbar w-full max-w-full mb-3 overflow-auto">
+            <div className="sm:min-h-[24px] min-w-fit flex gap-2">
+              {(tags ?? []).map((tag, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="min-w-fit bg-gray-100 font-medium capitalize text-xs rounded-md px-2 py-1 shadow-sm"
+                  >
+                    {tag.name}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <div className="w-full flex flex-col justify-between self-stretch mb-8">
             <div className="mb-3">
@@ -54,7 +56,7 @@ export default function BlogPostCard({
                 </ReactMarkdown>
               </div>
             </div>
-            <Link href={blogPostLink}>
+            <Link href={blogPostLink} className="w-fit">
               <Button color="primary" outline>
                 Read More
               </Button>

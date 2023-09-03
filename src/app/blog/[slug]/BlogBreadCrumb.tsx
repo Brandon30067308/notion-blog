@@ -1,6 +1,7 @@
 "use client";
 
 import { Breadcrumb } from "flowbite-react";
+import Link from "next/link";
 
 export default function BlogBreadCrumb({
   postTitle,
@@ -11,8 +12,8 @@ export default function BlogBreadCrumb({
 }) {
   return (
     <Breadcrumb className="[&_li>svg]:w-5 [&_li>svg]:h-5 [&_li>svg]:text-gray-700">
-      <Breadcrumb.Item href="/blog" className="text-sm">
-        <span>
+      <Breadcrumb.Item className="text-sm">
+        <Link href="/blog" className="flex items-center text-gray-700">
           <svg
             viewBox="0 0 18 17"
             fill="none"
@@ -24,11 +25,13 @@ export default function BlogBreadCrumb({
               fill="currentColor"
             />
           </svg>
-        </span>
-        Blog
+          Blog
+        </Link>
       </Breadcrumb.Item>
-      <Breadcrumb.Item href={postLink} className="text-sm">
-        {postTitle}
+      <Breadcrumb.Item>
+        <Link href={postLink} className="text-sm text-gray-700">
+          {postTitle}
+        </Link>
       </Breadcrumb.Item>
     </Breadcrumb>
   );
