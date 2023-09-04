@@ -17,13 +17,15 @@ export default async function BlogPage({
   params: { slug: string };
 }) {
   const postSlug = params.slug;
-  const postData: { post: BlogPost; markdown: string } = await unstable_cache(
-    async () => {
-      return await getSingleBlogPost(postSlug);
-    },
-    [postSlug],
-    { revalidate: 300, tags: [postSlug] }
-  )();
+  const postId = postSlug.split("-").pop() ?? "";
+  const postData: { post: BlogPost; markdown: string } | null =
+    await unstable_cache(
+      async () => {
+        return await getSingleBlogPost(postSlug);
+      },
+      [postSlug],
+      { revalidate: 300, tags: [postId] }
+    )();
 
   if (!postData) {
     return notFound();
@@ -118,11 +120,13 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const { post } = await getSingleBlogPost(params.slug);
+  const blogPost = await getSingleBlogPost(params.slug);
+  const description = blogPost?.post?.description;
+  const title = blogPost?.post?.title;
 
   return {
-    title: `${post.title} | Doodle Blog`,
-    description: post.description,
+    title: `${title ? `${title} | ` : ""}Doodle Blog`,
+    description: description ?? "Doodle Blog",
   };
 }
 

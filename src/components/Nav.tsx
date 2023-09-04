@@ -29,10 +29,12 @@ export default function Nav() {
         className="relative h-[75px] flex items-stretch justify-stretch [&>div]:flex-1 [&>div]:justify-between md:h-auto"
       >
         <Navbar.Brand
-          href="/"
-          className="focus-visible:outline-none focus:ring-2 focus:ring-blue-700/50 focus:border-none rounded-md"
+          as="div"
+          className="w-fit focus-visible:outline-none focus:ring-2 focus:ring-blue-700/50 focus:border-none rounded-md"
         >
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
         </Navbar.Brand>
 
         <div className="flex items-center order-1 md:order-2">

@@ -25,7 +25,7 @@ export default async function BlogPage({
       return posts;
     },
     [`page-${page}`],
-    { revalidate: 300, tags: [`page-${page}`] }
+    { revalidate: 300, tags: ["all"] }
   )();
 
   if (!pageBlogPosts?.length) return notFound();
@@ -34,12 +34,18 @@ export default async function BlogPage({
   const allPostsWithExcerpt = await Promise.all(
     pageBlogPosts.map(async (post) => {
       sema.acquire();
-      const { markdown } = await getSingleBlogPost(post.slug);
-      sema.release();
-      const excerpt = markdown
-        .split(/(\n)+/)
-        .filter((block) => !!block && block !== "\n")?.[0];
-      return { ...post, excerpt };
+      const blogPost = await getSingleBlogPost(post.slug);
+
+      if (blogPost) {
+        const markdown = blogPost?.markdown;
+        sema.release();
+        const excerpt = markdown
+          .split(/(\n)+/)
+          .filter((block) => !!block && block !== "\n")?.[0];
+        return { ...post, excerpt };
+      }
+
+      return null;
     })
   );
 
@@ -63,7 +69,7 @@ export default async function BlogPage({
             <h2 className="mb-6 font-bold">Recent Posts</h2>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
               {allPostsWithExcerpt.map((post, i) => {
-                return <BlogPostCard key={i} blogPost={post} />;
+                return post && <BlogPostCard key={i} blogPost={post} />;
               })}
             </div>
           </div>

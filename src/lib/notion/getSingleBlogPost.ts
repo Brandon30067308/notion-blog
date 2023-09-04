@@ -5,7 +5,7 @@ import { formatPageAsBlogPost } from "../blogHelpers";
 
 export default async function getSingleBlogPost(
   slug: string
-): Promise<PostPage> {
+): Promise<PostPage | null> {
   const response = await notionClient.databases.query({
     database_id: process.env.BLOG_INDEX_ID ?? "",
     filter: {
@@ -20,7 +20,7 @@ export default async function getSingleBlogPost(
 
   const page = response?.results?.[0];
   if (!page) {
-    throw new Error("Blog post not found");
+    return null;
   }
 
   const userId = (page as any)?.created_by?.id;

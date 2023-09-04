@@ -15,7 +15,6 @@ export default function BlogPostCard({
   blogPost: BlogPost & { excerpt: string };
 }) {
   const { cover, title, excerpt, tags, slug } = blogPost;
-  const blogPostLink = `/blog/${slug.toLowerCase()}`;
 
   return (
     <Flowbite theme={{ theme: flowbiteTheme }}>
@@ -56,7 +55,7 @@ export default function BlogPostCard({
                 </ReactMarkdown>
               </div>
             </div>
-            <Link href={blogPostLink} className="w-fit">
+            <Link href={`/blog/${slug}`} className="w-fit">
               <Button color="primary" outline>
                 Read More
               </Button>

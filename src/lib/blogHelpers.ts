@@ -61,7 +61,7 @@ export const formatPageAsBlogPost = function (
     title: properties.Name.title?.[0]?.plain_text ?? "",
     tags: properties.Tags.multi_select,
     description: properties.Description.rich_text?.[0]?.plain_text ?? "",
-    date: properties.Updated.last_edited_time,
+    date: properties.Created.created_time,
     slug: properties.Slug.formula.string,
   };
 };

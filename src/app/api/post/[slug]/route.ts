@@ -17,7 +17,7 @@ export async function GET(
       status: 200,
     });
   } catch (err: any) {
-    console.log("an error occurred: ", err.message);
+    console.log("error: ", err.message);
     return new Response(
       JSON.stringify({ message: err?.message ?? "An error occurred" }),
       {
