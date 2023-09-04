@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["www.notion.so", "lh3.googleusercontent.com"],
+    domains: [
+      "www.notion.so",
+      "lh3.googleusercontent.com",
+      "images.unsplash.com",
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   async redirects() {
     return [

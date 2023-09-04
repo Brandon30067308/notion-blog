@@ -40,7 +40,7 @@ export const formatPageAsBlogPost = function (
 
   switch (cover?.type) {
     case "file":
-      cover = page.cover.file;
+      cover = page.cover.file.url;
       break;
     case "external":
       cover = page.cover.external.url;
